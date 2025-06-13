@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIFA Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>⚽ FIFA Tracker</h1>
+    <p>Apple-Style Fußballübersicht</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Neuen Spieler erstellen</h2>
+      <input type="text" id="username" placeholder="Spielername">
+      <input type="text" id="team" placeholder="Team">
+      <button onclick="createUser()">➕ Spieler erstellen</button>
+    </section>
+
+    <section class="card">
+      <h2>Alle Spieler</h2>
+      <div id="userList"></div>
+    </section>
+
+    <section class="card">
+      <h2>Match eintragen</h2>
+      <select id="player1Select"></select>
+      <select id="player2Select"></select>
+      <input type="text" id="result" placeholder="z. B. 3:2">
+      <button onclick="submitMatch()">📤 Match speichern</button>
+    </section>
+
+    <section class="card">
+      <h2>Match History</h2>
+      <div id="matchList"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
