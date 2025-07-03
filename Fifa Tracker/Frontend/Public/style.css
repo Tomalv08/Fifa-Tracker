@@ -1,17 +1,32 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #f5f5f7;
-  color: #111;
-  margin: 0;
-  padding: 0;
+:root {
+  --navy: #0a0f2c;
+  --gold: #d4af37;
+  --white: #ffffff;
+  --soft-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-header {
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-  color: white;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(to bottom, #0a0f2c 0%, #1c1f3a 100%);
+  color: var(--white);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background: var(--navy);
+  padding: 1rem;
   text-align: center;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  box-shadow: var(--soft-shadow);
+}
+
+.subtitle {
+  color: var(--gold);
+  font-weight: 300;
 }
 
 main {
@@ -21,11 +36,17 @@ main {
 }
 
 .card {
-  background: white;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
   border-radius: 20px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--soft-shadow);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.01);
 }
 
 input, select {
@@ -33,28 +54,58 @@ input, select {
   padding: 0.7rem;
   margin: 0.5rem 0;
   border-radius: 10px;
-  border: 1px solid #ccc;
+  border: none;
   font-size: 1rem;
+  background: #fff;
+  color: #000;
 }
 
 button {
   width: 100%;
   padding: 0.8rem;
-  background: #007aff;
-  color: white;
+  background: var(--gold);
+  color: var(--navy);
   border: none;
   border-radius: 12px;
   font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
   margin-top: 0.5rem;
   transition: background 0.3s;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
 }
 
-button:hover {
-  background: #005fcc;
+button:active {
+  animation: glow 0.4s ease;
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px var(--gold); }
+  100% { box-shadow: 0 0 20px var(--gold); }
+}
+
+.status-msg {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--navy);
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  box-shadow: var(--soft-shadow);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.status-msg.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 #userList div, #matchList div {
   padding: 0.6rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--white);
 }

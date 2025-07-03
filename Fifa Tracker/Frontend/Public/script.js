@@ -1,8 +1,16 @@
 const apiBase = '/api';
 
+function showStatus(message) {
+  const statusBox = document.getElementById('status');
+  statusBox.textContent = message;
+  statusBox.classList.add('show');
+  setTimeout(() => statusBox.classList.remove('show'), 3000);
+}
+
 async function createUser() {
   const username = document.getElementById('username').value;
   const team = document.getElementById('team').value;
+  if (!username || !team) return;
 
   await fetch(`${apiBase}/users`, {
     method: 'POST',
@@ -11,12 +19,14 @@ async function createUser() {
   });
 
   loadUsers();
+  showStatus('✅ Spieler erstellt!');
 }
 
 async function submitMatch() {
   const player1_id = document.getElementById('player1Select').value;
   const player2_id = document.getElementById('player2Select').value;
   const result = document.getElementById('result').value;
+  if (!player1_id || !player2_id || !result) return;
 
   await fetch(`${apiBase}/matches`, {
     method: 'POST',
@@ -25,6 +35,7 @@ async function submitMatch() {
   });
 
   loadMatches();
+  showStatus('🎉 Match gespeichert!');
 }
 
 async function loadUsers() {
@@ -54,8 +65,16 @@ async function loadMatches() {
   const matchList = document.getElementById('matchList');
   matchList.innerHTML = '';
 
-  matches.forEach(match => {
-    matchList.innerHTML += `<div>⚽ ${match.player1} vs ${match.player2} → <strong>${match.result}</strong> (${new Date(match.date).toLocaleDateString()})</div>`;
+  matches.forEach((match, index) => {
+    const div = document.createElement('div');
+    div.innerHTML = `⚽ ${match.player1} vs ${match.player2} → <strong>${match.result}</strong> <span>(${new Date(match.date).toLocaleDateString()})</span>`;
+    div.classList.add('match-entry');
+    matchList.appendChild(div);
+
+    if (index === matches.length - 1) {
+      div.classList.add('new-match');
+      setTimeout(() => div.classList.remove('new-match'), 1500);
+    }
   });
 }
 
